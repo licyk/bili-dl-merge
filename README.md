@@ -16,6 +16,6 @@
 
 如果配置termux环境失败，可使用科学上网，或者输入  
 
-termux-change-repo
-
-用方向键，回车键选择，空格键勾选
+    termux-change-repo
+    
+空格键勾选"Mirror group"，回车，然后用方向键选择"Mirrors in China"，空格键勾选，再回车，等待命令执行完成后再重新配置termux环境
