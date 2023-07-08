@@ -49,7 +49,7 @@ function filemanager()
 			fi
 		fi
 	else #选择取消
-		exit #退出文件管理
+		start_option #退出文件管理
 	fi
 }
 
@@ -141,9 +141,35 @@ else
 fi
 }
 
-function update()
+#更新选项
+function update_option()
 {
-	d
+	if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 25 60) then
+		aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/bili-dl-merge/main/bili-dl-merge.sh -d ./bili-dl-merge-update-tmp/         
+		if [ "$?"="0" ];then
+			cp -fv ./bili-dl-merge-update-tmp/bili-dl-merge.sh ./
+			rm -rfv ./bili-dl-merge-update-tmp
+			chmod u+x bili-dl-merge.sh
+			if (dialog --clear --title "更新选项" --msgbox "更新成功" 25 60);then
+			source ./bili-dl-merge.sh
+			fi
+		else
+			dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 25 60
+		fi
+	else
+		aria2c https://raw.githubusercontent.com/licyk/bili-dl-merge/main/bili-dl-merge.sh -d ./bili-dl-merge-update-tmp/
+		if [ "$?"="0" ];then
+			cp -fv ./bili-dl-merge-update-tmp/bili-dl-merge.sh ./
+			rm -rfv ./bili-dl-merge-update-tmp
+			chmod u+x bili-dl-merge.sh
+			if (dialog --clear --title "更新选项" --msgbox "更新成功" 25 60);then
+			source ./bili-dl-merge.sh
+			fi
+		else
+			dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 25 60
+		fi
+	fi
+        start_option
 }
 
 #################################################
