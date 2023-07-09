@@ -3,6 +3,7 @@
 #文件后缀设置
 file_format="m4s"
 
+script_start_path=$(pwd)
 #文件管理器
 function filemanager()
 {
@@ -67,7 +68,7 @@ output_name=$(echo "$RANDOM" |sha512sum |head -c 10)
 #主界面
 function start_option()
 {
-	script_start_path=$(pwd)
+	cd $script_start_path
 
 	if [ -e .bili_dl_merge.ini ];then
 		config_status="已找到✔"
